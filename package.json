@@ -9,7 +9,7 @@
     "scripts": {
         "tsc": "tsc",
         "development": "ts-node-dev ./src/index.ts --respawn --transpileOnly",
-        "build": "tsc -b && copyfiles -u 1 configs_example/**/*.* build/configs_example/",
+        "build": "tsc -b && copyfiles -u 1 configs_example/**/*.* dist/configs_example/",
         "docker-build": "docker build . -t cloudflare-ddns-updater:latest"
     },
     "name": "cloudflare-ddns-updater",
