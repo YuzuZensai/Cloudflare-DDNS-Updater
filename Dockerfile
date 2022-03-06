@@ -1,25 +1,13 @@
-FROM debian AS build
+FROM node:17 AS build
 WORKDIR /home/node/app
 
 COPY . .
- 
-RUN apt-get update -y
-RUN apt-get install curl -y
-RUN curl -sL https://deb.nodesource.com/setup_17.x  | bash -
-RUN apt-get -y install nodejs
-RUN npm i -g yarn
 
 RUN yarn
 RUN yarn build
 
-FROM debian
+FROM node:17
 WORKDIR /home/node/app
-
-RUN apt-get update -y
-RUN apt-get install curl -y
-RUN curl -sL https://deb.nodesource.com/setup_17.x  | bash -
-RUN apt-get -y install nodejs
-RUN npm i -g yarn
 
 COPY --from=build /home/node/app/package.json .
 COPY --from=build /home/node/app/yarn.lock .
