@@ -14,6 +14,6 @@ COPY --from=build /home/node/app/yarn.lock .
 
 RUN yarn
 
-COPY --from=build /home/node/app/build .
+COPY --from=build /home/node/app/dist .
 
 CMD [ "node", "index.js"]
