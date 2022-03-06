@@ -1,0 +1,46 @@
+[
+    {
+        "token": "{ENV_TOKEN:EXAMPLE_SITE_TOKEN}",
+        "updateInterval": 60,
+        "zone": [
+            {
+                "id": "zone-id-1",
+                "type": "A",
+                "name": "example.com",
+                "content": "{CURRENT_IPv4}",
+                "ttl": 1,
+                "proxied": false
+            },
+            {
+                "id": "zone-id-2",
+                "type": "AAAA",
+                "name": "another.example.com",
+                "content": "{CURRENT_IPv6}",
+                "ttl": 1,
+                "proxied": false
+            }
+        ]
+    },
+    {
+        "token": "hard-code-cloudflare-token-2",
+        "updateInterval": 60,
+        "zone": [
+            {
+                "id": "zone-id-1",
+                "type": "A",
+                "name": "example.com",
+                "content": "{CURRENT_IPv4}",
+                "ttl": 1,
+                "proxied": false
+            },
+            {
+                "id": "zone-id-2",
+                "type": "A",
+                "name": "another.example.com",
+                "content": "{CURRENT_IPv6}",
+                "ttl": 1,
+                "proxied": false
+            }
+        ]
+    }
+]
