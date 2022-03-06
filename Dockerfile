@@ -4,6 +4,7 @@ WORKDIR /home/node/app
 COPY . .
  
 RUN apt-get update -y
+RUN apt-get install curl -y
 RUN curl -sL https://deb.nodesource.com/setup_17.x  | bash -
 RUN apt-get -y install nodejs
 RUN npm i -g yarn
@@ -15,6 +16,7 @@ FROM debian
 WORKDIR /home/node/app
 
 RUN apt-get update -y
+RUN apt-get install curl -y
 RUN curl -sL https://deb.nodesource.com/setup_17.x  | bash -
 RUN apt-get -y install nodejs
 RUN npm i -g yarn
