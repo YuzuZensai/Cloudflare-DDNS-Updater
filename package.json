@@ -10,7 +10,7 @@
         "tsc": "tsc",
         "development": "ts-node-dev ./src/index.ts --respawn --transpileOnly",
         "build": "tsc -b && copyfiles -u 1 configs_example/**/*.* dist/configs_example/",
-        "docker-build": "docker build . -t cloudflare-ddns-updater:latest"
+        "docker-build": "docker build . -t ghcr.io/yuzuzensai/cloudflare-ddns-updater:latest"
     },
     "name": "cloudflare-ddns-updater",
     "version": "1.0.0",
