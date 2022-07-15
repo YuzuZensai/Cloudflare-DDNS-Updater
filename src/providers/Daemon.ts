@@ -71,8 +71,13 @@ class Deamon {
             }
         }
 
-        const IPv4 = await this.getCurrentIPv4();
-        const IPv6 = await this.getCurrentIPv6();
+        let IPv4, IPv6;
+        try {
+            IPv4 = await this.getCurrentIPv4();
+            IPv6 = await this.getCurrentIPv6();
+        } catch(err) { 
+            Logger.error(`Unable to fetch ip address: ${err}`);
+        }
 
         IPv4 && Logger.info(`Current IPv4 address: ${IPv4}`);
         IPv6 && Logger.info(`Current IPv6 address: ${IPv6}`);
