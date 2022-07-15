@@ -77,6 +77,7 @@ class Deamon {
             IPv6 = await this.getCurrentIPv6();
         } catch(err) { 
             Logger.error(`Unable to fetch ip address: ${err}`);
+            return;
         }
 
         IPv4 && Logger.info(`Current IPv4 address: ${IPv4}`);
