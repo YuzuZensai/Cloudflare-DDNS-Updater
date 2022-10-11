@@ -169,7 +169,7 @@ class Deamon {
                 
                 else {
                     Logger.info(`[${zone.type}] (${zone.name} -> ${record.content}) already up to date`);
-                    return;
+                    continue;
                 }
                
             }
@@ -177,7 +177,7 @@ class Deamon {
             // Many records found
             else if(records.length > 1) {
                 Logger.error(`Multiple records found for ${zone.type} (${zone.name}) (Multiple records are not supported right now)`);
-                return;
+                continue;
             }
 
         }
