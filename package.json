@@ -16,7 +16,7 @@
     "version": "1.0.0",
     "main": "index.js",
     "repository": "https://github.com/YuzuZensai/Cloudflare-DDNS-Updater.git",
-    "author": "YuzuZensai <contact@kirameki.pink>",
+    "author": "Yuzu <yuzu@kirameki.cafe>",
     "license": "MIT",
     "dependencies": {
         "axios": "^0.26.0",
