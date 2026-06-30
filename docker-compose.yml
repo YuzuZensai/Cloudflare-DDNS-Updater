@@ -1,0 +1,9 @@
+services:
+  cloudflare-ddns-updater:
+    image: ghcr.io/yuzuzensai/cloudflare-ddns-updater:latest
+    container_name: cloudflare-ddns-updater
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./configs:/home/node/app/configs
