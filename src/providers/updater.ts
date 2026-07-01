@@ -97,13 +97,13 @@ class Updater {
           .createRecord({
             type: zone.type,
             name: zone.name,
-            content: IPv4,
+            content: newContent,
             ttl: zone.ttl,
             proxied: zone.proxied,
           })
           .catch((err) => {
             Logger.error(`Unable to create record: ${err.message}`);
-            return err;
+            return undefined;
           });
 
         if (result) Logger.info(`Created [${zone.type}] (${zone.name} -> ${newContent})`);
@@ -129,7 +129,7 @@ class Updater {
             })
             .catch((err) => {
               Logger.error(`Unable to update record: ${err.message}`);
-              return err;
+              return undefined;
             });
 
           if (updateResult)
@@ -148,8 +148,7 @@ class Updater {
             })
             .catch((err) => {
               Logger.error(`Unable to update record: ${err.message}`);
-              console.log(err);
-              return;
+              return undefined;
             });
 
           if (updateResult)

@@ -1,28 +1,27 @@
 import { describe, expect, test } from "bun:test";
 import {
-  arraysEqual,
+  hasExactKeys,
   isCloudflareConfig,
   isEnviromentTokenPlaceholder,
   isZoneConfig,
   parseEnvironmentTokenPlaceholderName,
 } from "./config-validation";
 
-describe("arraysEqual", () => {
-  test("returns true for identical arrays", () => {
-    expect(arraysEqual(["a", "b"], ["a", "b"])).toBe(true);
+describe("hasExactKeys", () => {
+  test("returns true when the object has exactly the given keys", () => {
+    expect(hasExactKeys({ a: 1, b: 2 }, ["a", "b"])).toBe(true);
   });
 
-  test("returns false for different length arrays", () => {
-    expect(arraysEqual(["a"], ["a", "b"])).toBe(false);
+  test("is order independent", () => {
+    expect(hasExactKeys({ b: 2, a: 1 }, ["a", "b"])).toBe(true);
   });
 
-  test("returns false for different order", () => {
-    expect(arraysEqual(["a", "b"], ["b", "a"])).toBe(false);
+  test("returns false when a key is missing", () => {
+    expect(hasExactKeys({ a: 1 }, ["a", "b"])).toBe(false);
   });
 
-  test("returns false when either input is nullish", () => {
-    expect(arraysEqual(null, ["a"])).toBe(false);
-    expect(arraysEqual(["a"], undefined)).toBe(false);
+  test("returns false when there is an extra key", () => {
+    expect(hasExactKeys({ a: 1, b: 2, c: 3 }, ["a", "b"])).toBe(false);
   });
 });
 
@@ -74,6 +73,11 @@ describe("isZoneConfig", () => {
     expect(isZoneConfig(null)).toBe(false);
     expect(isZoneConfig("not-an-object")).toBe(false);
   });
+
+  test("accepts a zone config whose keys are in a different order", () => {
+    const { proxied, ttl, ...rest } = validZone;
+    expect(isZoneConfig({ ...rest, proxied, ttl })).toBe(true);
+  });
 });
 
 describe("isCloudflareConfig", () => {
@@ -111,6 +115,11 @@ describe("isCloudflareConfig", () => {
   test("rejects null and non-object input instead of throwing", () => {
     expect(isCloudflareConfig(null)).toBe(false);
     expect(isCloudflareConfig("not-an-object")).toBe(false);
+  });
+
+  test("accepts a config whose top-level keys are in a different order", () => {
+    const { zone, ...rest } = validConfig;
+    expect(isCloudflareConfig({ zone, ...rest })).toBe(true);
   });
 
   test("rejects an env token placeholder whose variable is unset", () => {

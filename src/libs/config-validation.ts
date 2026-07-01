@@ -13,18 +13,11 @@ export interface CloudflareConfig {
   zone: Array<ZoneConfig>;
 }
 
-export function arraysEqual(
-  a: unknown[] | null | undefined,
-  b: unknown[] | null | undefined,
-): boolean {
-  if (a === b) return true;
-  if (a == null || b == null) return false;
-  if (a.length !== b.length) return false;
+export function hasExactKeys(object: Record<string, unknown>, keys: string[]): boolean {
+  const objectKeys = Object.keys(object);
+  if (objectKeys.length !== keys.length) return false;
 
-  for (let i = 0; i < a.length; ++i) {
-    if (a[i] !== b[i]) return false;
-  }
-  return true;
+  return keys.every((key) => objectKeys.includes(key));
 }
 
 export function isEnviromentTokenPlaceholder(token: string): boolean {
@@ -41,8 +34,7 @@ export function isZoneConfig(input: unknown): input is ZoneConfig {
 
   const object = input as Record<string, unknown>;
 
-  if (!arraysEqual(Object.keys(object), ["id", "type", "name", "content", "ttl", "proxied"]))
-    return false;
+  if (!hasExactKeys(object, ["id", "type", "name", "content", "ttl", "proxied"])) return false;
 
   return (
     !!object.id &&
@@ -67,7 +59,7 @@ export function isCloudflareConfig(
 
   const object = input as Record<string, unknown>;
 
-  if (!arraysEqual(Object.keys(object), ["token", "updateInterval", "zone"])) return false;
+  if (!hasExactKeys(object, ["token", "updateInterval", "zone"])) return false;
 
   const res =
     !!object.token &&
