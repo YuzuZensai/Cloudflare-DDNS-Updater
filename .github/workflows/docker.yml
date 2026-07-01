@@ -31,6 +31,7 @@ jobs:
         check:
           - typecheck
           - format
+          - test
 
     steps:
       - name: Checkout

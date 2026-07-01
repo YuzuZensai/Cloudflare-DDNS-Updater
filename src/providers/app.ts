@@ -1,8 +1,8 @@
-import Logger from "../libs/Logger";
+import Logger from "../libs/logger";
 
-import Environment from "./Environment";
-import Configuration from "./Configuration";
-import Daemon from "./Daemon";
+import Environment from "./environment";
+import Configuration from "./configuration";
+import Updater from "./updater";
 
 class App {
   public loadConfig(): void {
@@ -14,9 +14,9 @@ class App {
     Logger.log("info", "Loading environment");
     Environment.init();
   }
-  public loadDaemon(): void {
-    Logger.log("info", "Loading daemon");
-    Daemon.init();
+  public loadUpdater(): void {
+    Logger.log("info", "Loading updater");
+    Updater.init();
   }
 }
 

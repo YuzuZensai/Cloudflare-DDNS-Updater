@@ -1,7 +1,7 @@
-import App from "./providers/App";
+import App from "./providers/app";
 
 App.loadConfig();
 App.loadENV();
-App.loadDaemon();
+App.loadUpdater();
 
 export default App;
