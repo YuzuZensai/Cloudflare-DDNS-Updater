@@ -1,19 +1,21 @@
-FROM node:17 AS build
+FROM oven/bun:1.3.14 AS build
 WORKDIR /home/node/app
 
 COPY . .
 
-RUN yarn
-RUN yarn build
+RUN bun install --frozen-lockfile
+RUN bun run typecheck
 
-FROM node:17
+FROM oven/bun:1.3.14
 WORKDIR /home/node/app
 
 COPY --from=build /home/node/app/package.json .
-COPY --from=build /home/node/app/yarn.lock .
+COPY --from=build /home/node/app/bun.lock .
 
-RUN yarn
+RUN bun install --frozen-lockfile --production
 
-COPY --from=build /home/node/app/dist .
+COPY --from=build /home/node/app/src ./src
+COPY --from=build /home/node/app/configs_example ./configs_example
+COPY --from=build /home/node/app/tsconfig.json .
 
-CMD [ "node", "index.js"]
+CMD [ "bun", "src/index.ts"]
