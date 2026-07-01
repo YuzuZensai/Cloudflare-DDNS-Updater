@@ -12,7 +12,7 @@ WORKDIR /home/node/app
 COPY --from=build /home/node/app/package.json .
 COPY --from=build /home/node/app/bun.lock .
 
-RUN bun install --frozen-lockfile --production
+RUN bun install --frozen-lockfile --production --ignore-scripts
 
 COPY --from=build /home/node/app/src ./src
 COPY --from=build /home/node/app/configs_example ./configs_example
