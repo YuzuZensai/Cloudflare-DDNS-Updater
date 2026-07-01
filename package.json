@@ -22,6 +22,7 @@
     "typecheck": "tsc --noEmit",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
+    "check": "bun run typecheck && bun run format",
     "dev": "bun --watch src/index.ts",
     "start": "bun src/index.ts",
     "build": "bun run typecheck",
