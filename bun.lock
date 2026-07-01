@@ -5,15 +5,16 @@
     "": {
       "name": "cloudflare-ddns-updater",
       "dependencies": {
-        "axios": "latest",
-        "dotenv": "latest",
-        "validator": "latest",
-        "winston": "latest",
+        "axios": "^1.18.1",
+        "dotenv": "^17.4.2",
+        "validator": "^13.15.35",
+        "winston": "3.19.0",
       },
       "devDependencies": {
-        "@types/node": "latest",
-        "@types/validator": "latest",
-        "typescript": "latest",
+        "@types/node": "^26.0.1",
+        "@types/validator": "^13.15.10",
+        "prettier": "^3.9.4",
+        "typescript": "^6.0.3",
       },
     },
   },
@@ -109,6 +110,8 @@
     "ms": ["ms@2.1.3", "", {}, "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA=="],
 
     "one-time": ["one-time@1.0.0", "", { "dependencies": { "fn.name": "1.x.x" } }, "sha512-5DXOiRKwuSEcQ/l0kGCF6Q3jcADFv5tSmRaJck/OqkVFcOzutB134KRSfF0xDrL39MNnqxbHBbUUcjZIhTgb2g=="],
+
+    "prettier": ["prettier@3.9.4", "", { "bin": { "prettier": "bin/prettier.cjs" } }, "sha512-yWG/o/4oJfo036EKAfK6ACAoDOfHeRHx4tuxkfBZiauURiaSmYwlpOr5LQqKtIkRD2z1PLteme2WoxEnj4tHTg=="],
 
     "proxy-from-env": ["proxy-from-env@2.1.0", "", {}, "sha512-cJ+oHTW1VAEa8cJslgmUZrc+sjRKgAKl3Zyse6+PV38hZe/V6Z14TbCuXcan9F9ghlz4QrFr2c92TNF82UkYHA=="],
 
