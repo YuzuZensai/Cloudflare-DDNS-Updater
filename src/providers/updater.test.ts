@@ -59,9 +59,16 @@ function makeCloudflareConfig(overrides: Partial<CloudflareConfig> = {}): Cloudf
   };
 }
 
-async function freshUpdater() {
+interface TestableUpdater {
+  config: CloudflareConfig[];
+  start: () => void;
+  init: () => void;
+  update: (config: CloudflareConfig) => Promise<void>;
+}
+
+async function freshUpdater(): Promise<TestableUpdater> {
   const { default: Updater } = await import(`./updater?t=${Date.now()}-${Math.random()}`);
-  return Updater as any;
+  return Updater as unknown as TestableUpdater;
 }
 
 describe("Updater.init", () => {

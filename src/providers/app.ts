@@ -6,12 +6,12 @@ import Updater from "./updater";
 
 class App {
   public loadConfig(): void {
-    Logger.log("info", "Loading configuration");
+    Logger.info("Loading configuration");
     Configuration.init();
   }
 
   public loadENV(): void {
-    Logger.log("info", "Loading environment");
+    Logger.info("Loading environment");
     Environment.init();
   }
   public loadUpdater(): void {

@@ -68,8 +68,8 @@ class Updater {
       return;
     }
 
-    IPv4 && Logger.info(`Current IPv4 address: ${IPv4}`);
-    IPv6 && Logger.info(`Current IPv6 address: ${IPv6}`);
+    if (IPv4) Logger.info(`Current IPv4 address: ${IPv4}`);
+    if (IPv6) Logger.info(`Current IPv6 address: ${IPv6}`);
 
     for (const zone of cloudflareConfig.zone) {
       const api = new CloudflareAPI(token, zone.id);

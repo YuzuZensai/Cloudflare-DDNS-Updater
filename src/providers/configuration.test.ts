@@ -48,6 +48,15 @@ describe("Configuration", () => {
     ]);
   });
 
+  test("getConfig with no key returns all loaded configuration data", async () => {
+    const { default: Configuration } = await import(`./configuration?t=${Date.now()}-5`);
+    Configuration.init();
+
+    expect(Configuration.getConfig()).toEqual({
+      UpdaterConfig: [{ token: "example-token", updateInterval: 60, zone: [] }],
+    });
+  });
+
   test("getConfig throws for an unknown key", async () => {
     const { default: Configuration } = await import(`./configuration?t=${Date.now()}-3`);
     Configuration.init();

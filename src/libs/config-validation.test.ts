@@ -61,12 +61,18 @@ describe("isZoneConfig", () => {
   });
 
   test("rejects a zone config missing a key", () => {
-    const { proxied, ...rest } = validZone;
+    const rest: Partial<typeof validZone> = { ...validZone };
+    delete rest.proxied;
     expect(isZoneConfig(rest)).toBe(false);
   });
 
   test("rejects a zone config with wrong types", () => {
     expect(isZoneConfig({ ...validZone, ttl: "300" })).toBe(false);
+  });
+
+  test("rejects null and non-object input instead of throwing", () => {
+    expect(isZoneConfig(null)).toBe(false);
+    expect(isZoneConfig("not-an-object")).toBe(false);
   });
 });
 
@@ -92,6 +98,19 @@ describe("isCloudflareConfig", () => {
 
   test("rejects a config with an invalid zone", () => {
     expect(isCloudflareConfig({ ...validConfig, zone: [{ id: "only-id" }] })).toBe(false);
+  });
+
+  test("rejects a config with a null zone entry instead of throwing", () => {
+    expect(isCloudflareConfig({ ...validConfig, zone: [null] })).toBe(false);
+  });
+
+  test("rejects a config whose zone field is not an array instead of throwing", () => {
+    expect(isCloudflareConfig({ ...validConfig, zone: "not-an-array" })).toBe(false);
+  });
+
+  test("rejects null and non-object input instead of throwing", () => {
+    expect(isCloudflareConfig(null)).toBe(false);
+    expect(isCloudflareConfig("not-an-object")).toBe(false);
   });
 
   test("rejects an env token placeholder whose variable is unset", () => {

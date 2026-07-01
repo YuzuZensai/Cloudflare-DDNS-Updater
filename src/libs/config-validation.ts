@@ -13,12 +13,15 @@ export interface CloudflareConfig {
   zone: Array<ZoneConfig>;
 }
 
-export function arraysEqual(a: any, b: any): boolean {
+export function arraysEqual(
+  a: unknown[] | null | undefined,
+  b: unknown[] | null | undefined,
+): boolean {
   if (a === b) return true;
   if (a == null || b == null) return false;
   if (a.length !== b.length) return false;
 
-  for (var i = 0; i < a.length; ++i) {
+  for (let i = 0; i < a.length; ++i) {
     if (a[i] !== b[i]) return false;
   }
   return true;
@@ -33,40 +36,48 @@ export function parseEnvironmentTokenPlaceholderName(token: string): string | nu
   return token.split("{ENV_TOKEN:")[1].slice(0, -1);
 }
 
-export function isZoneConfig(object: any): object is ZoneConfig {
+export function isZoneConfig(input: unknown): input is ZoneConfig {
+  if (typeof input !== "object" || input === null) return false;
+
+  const object = input as Record<string, unknown>;
+
   if (!arraysEqual(Object.keys(object), ["id", "type", "name", "content", "ttl", "proxied"]))
     return false;
 
   return (
-    object &&
-    object.id &&
+    !!object.id &&
     typeof object.id == "string" &&
-    object.type &&
+    !!object.type &&
     typeof object.type == "string" &&
-    object.name &&
+    !!object.name &&
     typeof object.name == "string" &&
-    object.content &&
+    !!object.content &&
     typeof object.content == "string" &&
-    object.ttl &&
+    !!object.ttl &&
     typeof object.ttl == "number" &&
     typeof object.proxied == "boolean"
   );
 }
 
 export function isCloudflareConfig(
-  object: any,
+  input: unknown,
   onMissingEnvToken?: (envTokenName: string) => void,
-): object is CloudflareConfig {
+): input is CloudflareConfig {
+  if (typeof input !== "object" || input === null) return false;
+
+  const object = input as Record<string, unknown>;
+
   if (!arraysEqual(Object.keys(object), ["token", "updateInterval", "zone"])) return false;
 
   const res =
-    object &&
-    object.token &&
+    !!object.token &&
     typeof object.token == "string" &&
-    object.updateInterval &&
+    !!object.updateInterval &&
     typeof object.updateInterval == "number";
 
-  for (let zone of object.zone) {
+  if (!Array.isArray(object.zone)) return false;
+
+  for (const zone of object.zone) {
     if (!isZoneConfig(zone)) return false;
   }
 
