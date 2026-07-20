@@ -1,4 +1,4 @@
-# Cloudflare DDNS Updater
+# ☁️ Cloudflare DDNS Updater
 
 Keeps Cloudflare DNS records pointed at the machine's current public IPv4 and/or IPv6 address.
 
